@@ -10,6 +10,14 @@ export async function POST(request: Request) {
   const json = await request.json()
   const { chatSettings, messages } = json as ChatAPIPayload
 
+  // ✅ New Feature: Log request metadata for debugging/monitoring
+  console.log("🔍 Request Received", {
+    timestamp: new Date().toISOString(),
+    model: chatSettings.model,
+    temperature: chatSettings.temperature,
+    totalMessages: messages.length
+  })
+
   try {
     const profile = await getServerProfile()
 
